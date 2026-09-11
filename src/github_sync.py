@@ -234,7 +234,7 @@ class GitHubSync:
         )
 
         self._headers = {
-            "Authorization": f"token {token}",
+            "Authorization": f"Bearer {token}",
             "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28",
         }
@@ -431,8 +431,8 @@ class GitHubSync:
                 errors: list[str] = []
                 # 先把远端不可变 blob 全部下载到临时区并完成清单/证据校验。
                 # 只有所有文件都通过，才安装证据；只有所有证据都安装成功，
-                # 才开始覆盖 Markdown。这样 tree 顺序不会造成“桶已恢复但证据
-                # 最后才失败”的悬空 source_refs。
+                # 才开始覆盖 Markdown。这样 tree 顺序不会造成"桶已恢复但证据
+                # 最后才失败"的悬空 source_refs。
                 with tempfile.TemporaryDirectory(
                     prefix="ombre-github-restore-"
                 ) as staging_dir:
